@@ -9,8 +9,8 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'mvn clean install'
-                sh 'docker stop contenedor'
-                sh 'docker rm contenedor'
+                sh 'docker stop contenedor || echo "no existe contenedor corriendo"' 
+                sh 'docker rm contenedor || echo "no existe contenedor para remover"'
                 sh 'docker build -t vincenup/${JOB_NAME}:v${BUILD_NUMBER} .'
             }
         }
